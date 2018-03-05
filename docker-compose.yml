@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+
+  unittest:
+    environment:
+      PYTHONPATH: "/app"
+    build:
+      context: .
+    volumes:
+      - .:/code
+    command: "pytest -s tests"
+
+  pandoc:
+    image: conoria/alpine-pandoc
+    volumes:
+      - .:/code
+    command: pandoc --from=markdown --to=rst --output=/code/README.rst /code/README.md
